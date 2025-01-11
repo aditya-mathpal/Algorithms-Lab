@@ -9,10 +9,6 @@ typedef struct node {
 
 TreeNode* createNode(int data) {
     TreeNode* newNode = (TreeNode*)malloc(sizeof(TreeNode));
-    if (newNode == NULL) {
-        printf("Memory allocation failed!\n");
-        exit(1);
-    }
     newNode->data = data;
     newNode->left = NULL;
     newNode->right = NULL;
@@ -35,6 +31,18 @@ TreeNode* insert(TreeNode* root, int key) {
     else if (key > root->data)
         root->right = insert(root->right, key);
     
+    return root;
+}
+
+TreeNode* buildTree(TreeNode* root) {
+    int n;
+    printf("Enter elements (-1 to stop): ");
+    while (1) {
+        scanf("%d", &n);
+        if (n == -1)
+            break;
+        root = insert(root, n);
+    }
     return root;
 }
 
@@ -69,14 +77,14 @@ void freeTree(TreeNode* root) {
 int main() {
     TreeNode* root = NULL;
     printf("Enter nodes of the tree:\n");
-    root = //need to fix
+    root = buildTree(root);
     printf("\nInorder traversal: ");
     inorder(root);
     printf("\nPreorder traversal: ");
     preorder(root);
     printf("\nPostorder traversal: ");
     postorder(root);
-    printf("\n");
+    printf("\n\n");
 
     printf("Enter key: ");
     int key;
@@ -99,3 +107,20 @@ int main() {
     freeTree(root);
     return 0;
 }
+
+/*
+output:
+Enter nodes of the tree:
+Enter elements (-1 to stop): 34 21 55 -1
+
+Inorder traversal: 21 34 55
+Preorder traversal: 34 21 55
+Postorder traversal: 21 55 34
+
+Enter key: 36
+Key 36 inserted in the tree.
+
+Inorder traversal: 21 34 36 55
+Preorder traversal: 34 21 55 36
+Postorder traversal: 21 36 55 34
+*/
