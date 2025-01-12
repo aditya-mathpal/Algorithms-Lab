@@ -1,6 +1,5 @@
 #include<stdio.h>
 #include<stdlib.h>
-#include<math.h>
 
 int gcd(int a, int b) {
     int x = a<b?a:b;
