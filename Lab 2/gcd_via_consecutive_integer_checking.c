@@ -1,23 +1,30 @@
 #include<stdio.h>
 #include<stdlib.h>
 
-int gcd(int a, int b) {
+int gcd(int a, int b, int* opcount) {
     int x = a<b?a:b;
     if(x<=0) {
         printf("Number too small.\n");
         exit(1);
     }
     while(1) {
-        if(a%x == 0 && b%x == 0) return x;
-        else x--;
+        if(a%x == 0 && b%x == 0) {
+            (*opcount)++;
+            return x;
+        }
+        else {
+            x--;
+            (*opcount)++;
+        }
     }
 }
 
 int main() {
     printf("Enter two numbers to calculate GCD (do not enter 0 or lesser): ");
-    int x, y;
+    int x, y, opcount = 0;
     scanf("%d%d",&x,&y);
-    printf("GCD is %d",gcd(x,y));
+    printf("GCD is %d\n",gcd(x,y,&opcount));
+    printf("%d operations\n",opcount);
     return 0;
 }
 
