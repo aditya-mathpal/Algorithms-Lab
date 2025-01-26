@@ -22,7 +22,7 @@ int main() {
     scanf("%d",&n);
     int* arr = (int*)malloc(n*sizeof(int));
     printf("Entering elements of array");
-    for(int i = 0; i < n; i++) arr[i] = n-i;
+    for(int i = 0; i < n; i++) arr[i] = n-i; // worst case is when the array is sorted in the opposite order
     printf("\nSorting array");
     bubbleSort(arr,n,&opcount);
     printf("\n%d operations\n",opcount);
