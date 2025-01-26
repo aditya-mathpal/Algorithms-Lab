@@ -10,7 +10,7 @@ int main() {
 	printf("Enter substring to search: ");
 	fgets(sub,50,stdin);
 	sub[strlen(sub)-1] = 0;
-	printf("Searching %s in %s\n",sub,str);
+	printf("Searching \"%s\" in \"%s\"\n",sub,str);
 	for(int i = 0; i <= strlen(str) - strlen(sub); i++) {
 		opcount++;
 		if(str[i] == sub[0]) {
@@ -20,7 +20,7 @@ int main() {
 				if(str[i+j] != sub[j]) break;
 			}
 			if(j == strlen(sub)) {
-				printf("First occurance of string \"%s\" found at index %d\n%d operations",sub,i,opcount);
+				printf("First occurrence of string \"%s\" found at index %d\n%d operations",sub,i,opcount);
 				break;
 			}
 		}
@@ -32,8 +32,8 @@ int main() {
 output:
 Enter string: the quick brown fox jumps over the lazy dog
 Enter substring to search: dog
-Searching dog in the quick brown fox jumps over the lazy dog
-First occurance of string "dog" found at index 40
+Searching "dog" in "the quick brown fox jumps over the lazy dog"
+First occurrence of string "dog" found at index 40
 43 operations
 
 time efficiency:

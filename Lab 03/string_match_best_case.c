@@ -14,17 +14,17 @@ int main() {
     }
     str[n] = 0;
     sub[m] = 0;
-	printf("Searching %s in %s\n",sub,str);
+	printf("Searching \"%s\" in \"%s\"\n",sub,str);
 	for(int i = 0; i <= strlen(str) - strlen(sub); i++) {
-        opcount++;
+		opcount++;
 		if(str[i] == sub[0]) {
 			int j;
 			for(j = 1; j < strlen(sub); j++) {
-                opcount++;
+				opcount++;
 				if(str[i+j] != sub[j]) break;
 			}
 			if(j == strlen(sub)) {
-				printf("First occurance of string \"%s\" found at index %d\n%d operations\n",sub,i,opcount);
+				printf("First occurrence of string \"%s\" found at index %d\n%d operations",sub,i,opcount);
 				break;
 			}
 		}
