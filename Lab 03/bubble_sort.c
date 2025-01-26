@@ -41,5 +41,5 @@ Sorted array: 1 2 3 4 5
 16 operations
 
 time efficiency:
-Due to the number of iterations and swaps the algorithm has to produce, it has a time complexity of omega(n), theta(n^2), and O(n^2) where n is the length of the array.
+Due to the number of iterations and swaps the algorithm has to produce, it has a time complexity of omega(n^2), theta(n^2), and O(n^2) where n is the length of the array.
 */
