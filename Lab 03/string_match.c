@@ -25,6 +25,7 @@ int main() {
 			}
 		}
 	}
+	printf("String \"%s\" not found\n%d operations",sub,opcount);
 	return 0;
 }
 
