@@ -65,7 +65,6 @@ void bfs(Graph* graph, int start, int* opcount) {
     
     while (!isQueueEmpty(&q)) {
         int current = dequeue(&q);
-        printf("Visited: %d\n", current);
         
         for (int i = 0; i < graph->vertices; i++) {
             (*opcount)++;
@@ -78,36 +77,21 @@ void bfs(Graph* graph, int start, int* opcount) {
 }
 
 int main() {
-    printf("Enter number of vertices: ");
-    int n, t1, t2, opcount = 0;
-    scanf("%d", &n);
-    Graph* graph = createGraph(n);
-    printf("Enter edges of the graph (input vertex numbers, -1 to cancel): ");
-    while(1) {
-        scanf("%d", &t1);
-        if(t1 == -1) break;
-        scanf("%d", &t2);
-        addEdge(graph, t1, t2);
+    printf("Enter number of tests: ");
+    int t;
+    scanf("%d", &t);
+    printf("Enter number of vertices for each test: ");
+    while(t--) {
+        int n, opcount = 0;
+        scanf("%d", &n);
+        Graph* graph = createGraph(n);
+        for(int i = 0; i < n; i++) {
+            addEdge(graph, i, i+1);
+        }
+        bfs(graph, 0, &opcount);
+        printf("%d vertices: %d operations\n", n, opcount);
+
+        free(graph);
     }
-
-    printf("BFS starting from vertex 0:\n");
-    bfs(graph, 0, &opcount);
-    printf("%d operations\n", opcount);
-
-    free(graph);
     return 0;
 }
-
-/*
-output:
-Enter number of vertices: 6
-Enter edges of the graph (input vertex numbers, -1 to cancel): 0 1 0 2 1 3 1 4 2 5 -1
-BFS starting from vertex 0:
-Visited: 0
-Visited: 1
-Visited: 2
-Visited: 3
-Visited: 4
-Visited: 5
-36 operations
-*/
