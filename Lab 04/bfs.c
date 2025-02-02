@@ -36,7 +36,7 @@ int isQueueEmpty(Queue* q) {
 }
 
 void enqueue(Queue* q, int value) {
-    if (q->rear == 100 - 1) {
+    if (q->rear == 99) {
         printf("Queue is full!\n");
         return;
     }
