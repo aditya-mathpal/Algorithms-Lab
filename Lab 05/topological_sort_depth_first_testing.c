@@ -73,7 +73,7 @@ void dfs(Graph* graph, int v, int visited[], Stack* stack, int* opcount) {
 void topologicalSort(Graph* graph, int* opcount) {
     Stack stack;
     initStack(&stack);
-    int visited[20];
+    int visited[20] = {0};
 
     for(int i = 0; i < graph->vertices; i++) {
         (*opcount)++;
@@ -98,38 +98,24 @@ void freeGraph(Graph* graph) {
             curr = curr->next;
             free(temp);
         }
+        graph->adjList[i] = NULL;
     }
     free(graph->adjList);
     free(graph);
 }
 
 int main() {
-    int v, t1, t2, opcount = 0;
-    printf("Enter number of vertices: ");
-    scanf("%d", &v);
+    int v, e, opcount = 0;
+    printf("Enter number of vertices and edges: ");
+    scanf("%d%d", &v, &e);
     
     Graph* graph = createGraph(v);
-    
-    printf("Enter edges (source destination, -1 to stop):\n");
-    while (1) {
-        scanf("%d", &t1);
-        if(t1 == -1) break;
-        scanf("%d", &t2);
-        addEdge(graph, t1, t2);
-    }
+
+    for(int i = 0; i < e; i++)
+        addEdge(graph, i, i+1);
 
     topologicalSort(graph, &opcount);
     printf("Total operations: %d\n", opcount);
     freeGraph(graph);
-
     return 0;
 }
-
-/*
-output:
-Enter number of vertices: 5
-Enter edges (source destination, -1 to stop):
-0 2 1 2 2 3 2 4 3 4 -1 
-Topological Sort: 1 0 2 3 4 
-Total operations: 30
-*/

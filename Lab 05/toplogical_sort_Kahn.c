@@ -11,10 +11,11 @@ typedef struct Graph {
     Node** adjList;
 } Graph;
 
-typedef struct Stack {
+typedef struct Queue {
     int arr[20];
-    int top;
-} Stack;
+    int front;
+    int rear;
+} Queue;
 
 Graph* createGraph(int vertices) {
     Graph* graph = (Graph*)malloc(sizeof(Graph));
@@ -34,60 +35,74 @@ void addEdge(Graph* graph, int u, int v) {
     graph->adjList[u] = newNode;
 }
 
-void initStack(Stack* s) {
-    s->top = -1;
+void initQueue(Queue* q) {
+    q->front = 0;
+    q->rear = -1;
 }
 
-void push(Stack* s, int value) {
-    s->arr[++(s->top)] = value;
+void enqueue(Queue* q, int value) {
+    q->arr[++(q->rear)] = value;
 }
 
-int pop(Stack* s) {
-    return s->arr[(s->top)--];
+int dequeue(Queue* q) {
+    return q->arr[(q->front)++];
 }
 
-int isEmpty(Stack* s) {
-    return s->top == -1;
-}
-
-void dfs(Graph* graph, int v, int visited[], Stack* stack, int* opcount) {
-    visited[v] = 1;
-
-    Node* temp = graph->adjList[v];
-    while(1) {
-        (*opcount)++;
-        if (!temp) break;
-
-        (*opcount)++;
-        if(!visited[temp->vertex]) {
-            dfs(graph, temp->vertex, visited, stack, opcount);
-        }
-        
-        temp = temp->next;
-    }
-
-    push(stack, v);
-    (*opcount)++;
+int isEmpty(Queue* q) {
+    return q->front > q->rear;
 }
 
 void topologicalSort(Graph* graph, int* opcount) {
-    Stack stack;
-    initStack(&stack);
-    int visited[20];
+    int* inDegree = (int*)calloc(graph->vertices, sizeof(int));
+    int order[20], orderIndex = 0;
+    Queue q;
+    initQueue(&q);
+
+    for(int u = 0; u < graph->vertices; u++) {
+        Node* temp = graph->adjList[u];
+        while(temp) {
+            inDegree[temp->vertex]++;
+            (*opcount)++;
+            temp = temp->next;
+        }
+        (*opcount)++;
+    }
 
     for(int i = 0; i < graph->vertices; i++) {
         (*opcount)++;
-        if(!visited[i]) {
-            dfs(graph, i, visited, &stack, opcount);
+        if(inDegree[i] == 0) {
+            enqueue(&q, i);
+        }
+    }
+
+    while(!isEmpty(&q)) {
+        (*opcount)++;
+        int u = dequeue(&q);
+        order[orderIndex++] = u;
+
+        Node* temp = graph->adjList[u];
+        while(temp) {
+            int v = temp->vertex;
+            inDegree[v]--;
+            (*opcount)++;
+
+            if(inDegree[v] == 0) {
+                enqueue(&q, v);
+            }
+
+            temp = temp->next;
+            (*opcount)++;
         }
     }
 
     printf("Topological Sort: ");
-    while(!isEmpty(&stack)) {
-        printf("%d ", pop(&stack));
+    for(int i = 0; i < orderIndex; i++) {
+        printf("%d ", order[i]);
         (*opcount)++;
     }
     printf("\n");
+
+    free(inDegree);
 }
 
 void freeGraph(Graph* graph) {
@@ -111,7 +126,7 @@ int main() {
     Graph* graph = createGraph(v);
     
     printf("Enter edges (source destination, -1 to stop):\n");
-    while (1) {
+    while(1) {
         scanf("%d", &t1);
         if(t1 == -1) break;
         scanf("%d", &t2);
@@ -129,7 +144,7 @@ int main() {
 output:
 Enter number of vertices: 5
 Enter edges (source destination, -1 to stop):
-0 2 1 2 2 3 2 4 3 4 -1 
-Topological Sort: 1 0 2 3 4 
-Total operations: 30
+0 2 1 2 2 3 2 4 3 4 -1
+Topological Sort: 0 1 2 3 4 
+Total operations: 35
 */
