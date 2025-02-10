@@ -16,11 +16,9 @@ TreeNode* createNode(int data) {
     return newNode;
 }
 
-TreeNode *buildTree() {
+TreeNode* buildTree(int* i, int n) {
     int data;
-    printf("Enter -1 for NULL\n");
-    printf("Enter root node value: ");
-    scanf("%d", &data);
+    data = (*i)++;
 
     if (data == -1) return NULL;
 
@@ -31,12 +29,10 @@ TreeNode *buildTree() {
 
     while(front < rear) {
         TreeNode *current = queue[front++];
-        printf("Left child of %d: ", current->data);
-        scanf("%d", &data);
+        data = (*i)<=n?(*i)++:-1;
         current->left = createNode(data);
         if (current->left) queue[rear++] = current->left;
-        printf("Right child of %d: ", current->data);
-        scanf("%d", &data);
+        data = (*i)<=n?(*i)++:-1;
         current->right = createNode(data);
         if (current->right) queue[rear++] = current->right;
     }
@@ -52,31 +48,12 @@ void countNodes(TreeNode* root, int* n, int* opcount) {
 }
 
 int main() {
-    TreeNode* root = buildTree();
+    int n, i = 1;
+    printf("Enter the number of vertices: ");
+    scanf("%d",&n);
+    TreeNode* root = buildTree(&i,n);
     int c = 0, opcount = 0;
     countNodes(root, &c, &opcount);
     printf("There are %d nodes in the tree\n%d operations\n", c, opcount);
     return 0;
 }
-
-/*
-output:
-Enter -1 for NULL
-Enter root node value: 1
-Left child of 1: 2
-Right child of 1: 3
-Left child of 2: 4
-Right child of 2: 5
-Left child of 3: 6
-Right child of 3: 7
-Left child of 4: -1
-Right child of 4: -1
-Left child of 5: -1
-Right child of 5: -1
-Left child of 6: -1
-Right child of 6: -1
-Left child of 7: -1
-Right child of 7: -1
-There are 7 nodes in the tree
-15 operations
-*/
