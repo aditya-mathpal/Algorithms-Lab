@@ -87,6 +87,7 @@ void inorder(TreeNode* root) {
     }
 }
 
+// ex2
 void PredAndSucc(TreeNode* root, int key, int* pred, int* succFlag) {
     if(root) {
         PredAndSucc(root->left, key, pred, succFlag);
