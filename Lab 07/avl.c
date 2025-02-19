@@ -87,47 +87,23 @@ void inorder(TreeNode* root) {
     }
 }
 
-void modifiedInorder(TreeNode* root, int key) {
+void PredAndSucc(TreeNode* root, int key, int* pred, int* succFlag) {
     if(root) {
-        int *pred;
-        inorder(root->left);
+        PredAndSucc(root->left, key, pred, succFlag);
         if(root->data < key) *pred = root->data;
-        if(root->data == key) printf("Predecessor: %d\n", *pred);
-        inorder(root->right);
-    }
-}
-
-// TreeNode* findKey(TreeNode* root, int key) {
-//     if(root) {
-//         if(root->data == key) return root;
-//         else if(root->data > key) return findKey(root->left, key);
-//         else return findKey(root->right, key);
-//     }
-//     printf("Key doesn't exist\n");
-//     return NULL;
-// }
-
-void displayPredecessorAndSuccessor(TreeNode* root, int key) {
-    if(root) {
-        TreeNode* curr = root;
-        int num;
-        while(curr->data != key) {
-            if(key < curr->data) curr = curr->right;
-            else curr = curr->left;
+        if(root->data == key)
+            printf("Predecessor: %d\n", *pred);
+        if(root->data > key && !(*succFlag)) {
+            printf("Successor: %d\n", root->data);
+            *succFlag = 1;
         }
-        printf("Predecessor: %d\n", curr->data);
-        curr = root;
-        while(curr->data != key) {
-            if(key > curr->data) curr = curr->right;
-            else curr = curr->left;
-        }
-        printf("Successor: %d\n", curr->data);
+        PredAndSucc(root->right, key, pred, succFlag);
     }
 }
 
 int main() {
     TreeNode* tree = NULL;
-    int n;
+    int n, pred, succFlag = 0;
     printf("Enter node values (-1 to stop): ");
     do {
         scanf("%d", &n);
@@ -138,7 +114,7 @@ int main() {
     printf("\n");
     printf("Enter the key to print successor and predecessor of: ");
     scanf("%d", &n);
-    modifiedInorder(tree, n);
+    PredAndSucc(tree, n, &pred, &succFlag);
     return 0;
 }
 
@@ -151,5 +127,10 @@ In-order traversal:
 
 /*
 ex2 output:
-
+Enter node values (-1 to stop): 50 20 70 30 60 -1
+In-order traversal:
+   20   30   50   60   70
+Enter the key to print successor and predecessor of: 50
+Predecessor: 30
+Successor: 60
 */
