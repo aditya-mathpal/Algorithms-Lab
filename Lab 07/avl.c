@@ -113,9 +113,11 @@ int main() {
     printf("In-order traversal:\n");
     inorder(tree);
     printf("\n");
+    //ex2
     printf("Enter the key to print successor and predecessor of: ");
     scanf("%d", &n);
     PredAndSucc(tree, n, &pred, &succFlag);
+    //ex2 end
     return 0;
 }
 
