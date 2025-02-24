@@ -1,6 +1,7 @@
 /*
 Problem statement:
-Use a recursive decrease-and-conquer approach to calculate the GCD of all elements per row of a matrix. Print the GCD for each row.
+Use a recursive decrease-and-conquer approach to calculate the GCD of all elements per row of a matrix.
+Print the GCD for each row.
 */
 
 #include<stdio.h>
@@ -41,6 +42,7 @@ int main() {
             printf("%d\t", mat[i][j]);
         printf("\n");
     }
+    printf("\n");
 
     int* results = (int*)malloc(n * sizeof(int));
 
@@ -64,6 +66,7 @@ Enter elements of the matrix:
 Entered matrix is:
 240     72      48
 360     180     90
+
 GCD of row 1: 24
 GCD of row 2: 90
 */
