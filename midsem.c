@@ -61,12 +61,17 @@ Enter number of columns:
 3
 
 Enter elements of the matrix:
-240 72 48 360 180 90
+240   
+72
+48
+300
+75
+45
 
 Entered matrix is:
 240     72      48
-360     180     90
+300     75      45
 
 GCD of row 1: 24
-GCD of row 2: 90
+GCD of row 2: 15
 */
