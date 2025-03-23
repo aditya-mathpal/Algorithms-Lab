@@ -26,7 +26,6 @@ int search(int* arr, int key, int tableSize, int* comp) {
     if(arr[index] == key) return 1;
     for(int i = (index+1)%tableSize; i!= index; i = (i+1)%tableSize) {
         (*comp)++;
-        if(i == tableSize) i = 0;
         if(arr[i] == key) return 1;
     }
     return 0;
