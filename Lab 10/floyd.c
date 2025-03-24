@@ -1,8 +1,6 @@
 #include <stdio.h>
 #include<stdlib.h>
 
-#define MAX 100
-
 void floyd(int** graph, int** dist, int n, int* op) {
     for (int i = 0; i < n; i++)
         for (int j = 0; j < n; j++)
