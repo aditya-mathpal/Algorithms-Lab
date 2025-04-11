@@ -281,7 +281,7 @@ function BitapSearch(text, pattern):
         mask[pattern[i]] &= ~(1 << i)
     state = ~0
     for i from 0 to length(text)-1:
-        state = (state << 1) | mask[text[i]]
+        state = ((state << 1) | 1) & mask[text[i]]
         if (state & (1 << m)) == 0:
             print "Pattern found at index", i - m + 1
 ```
